@@ -43,8 +43,12 @@
 </div>
 
 <div align="center">
-    <img data-importer="repositories" src="https://raw.githubusercontent.com/PollyYong/PollyYong/repositories-output/repositories.svg" alt="Repositories" />
+    <img src="https://raw.githubusercontent.com/PollyYong/PollyYong/master/profile-summary-card-output/default/0-profile-details.svg" alt="github stats"></br>
 </div>
+
+[![activity graph](https://github-readme-activity-graph.vercel.app/graph?username=PollyYong&theme=github-dark-dimmed&custom_title=Guilyx%20Activity%20Graph&hide_border=true)](https://github.com/PollyYong/github-readme-activity-graph)
+
+```yaml
 
 <div align="center">
   <img data-importer="snake" src="https://raw.githubusercontent.com/PollyYong/PollyYong/snake-output/snake.svg" alt="Snake animation" />
