@@ -42,11 +42,11 @@
   <img src="https://streak-stats.demolab.com?user=PollyYong&locale=en&mode=daily&theme=dark&hide_border=false&border_radius=5&order=3" height="220" alt="streak graph"/>
 </div>
 
-<div align="center">
+<!-- <div align="center">
   <a href="https://github.com/PollyYong?tab=repositories">
     <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PollyYong&layout=compact&theme=dracula&hide_border=false&langs_count=6" alt="Top Repositories" />
   </a>
-</div>
+</div> -->
 
 <div align="center">
   <img data-importer="snake" src="https://raw.githubusercontent.com/c/PollyYong/snake-output/snake.svg" alt="Snake animation" />
