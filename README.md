@@ -42,7 +42,7 @@
   <img src="https://streak-stats.demolab.com?user=PollyYong&locale=en&mode=daily&theme=dark&hide_border=false&border_radius=5&order=3" height="220" alt="streak graph"/>
 </div>
 
-[![activity graph](https://github-readme-activity-graph.vercel.app/graph?username=PollyYong&theme=github-dark-dimmed&custom_title=Guilyx%20Activity%20Graph&hide_border=true)](https://github.com/PollyYong/github-readme-activity-graph)
+[![activity graph](https://github-readme-activity-graph.vercel.app/graph?username=PollyYong&theme=github-dark-dimmed&custom_title=PollyYong%20Activity%20Graph&hide_border=true)](https://github.com/PollyYong/github-readme-activity-graph)
 
 <div align="center">
   <img data-importer="snake" src="https://raw.githubusercontent.com/PollyYong/PollyYong/snake-output/snake.svg" alt="Snake animation" />
