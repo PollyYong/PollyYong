@@ -1,8 +1,8 @@
-name: Generate repositories timeline
+name: Generate repositories graph
 
 on:
   schedule:
-    - cron: "* */12 * * *"
+    - cron: "0 */12 * * *"
   workflow_dispatch:
   push:
     branches:
@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
@@ -24,50 +24,48 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: pip install matplotlib requests
-
-      - name: Generate repositories timeline graph
+      - name: Generate repositories SVG
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: ${{ github.repository_owner }}
         run: |
           python - <<'PY'
           import os
-          import requests
-          from datetime import datetime
+          import json
+          import math
+          import urllib.request
           from collections import Counter
+          from datetime import datetime, date
           from pathlib import Path
-          import matplotlib.pyplot as plt
 
-          plt.switch_backend("Agg")
+          username = os.environ.get("USERNAME", "")
+          token = os.environ.get("GITHUB_TOKEN", "")
 
-          username = os.environ["USERNAME"]
-          token = os.environ.get("GH_TOKEN", "")
-          headers = {"Authorization": f"Bearer {token}"} if token else {}
+          if not username:
+              raise SystemExit("USERNAME is required")
+
+          headers = {"Accept": "application/vnd.github+json"}
+          if token:
+              headers["Authorization"] = f"Bearer {token}"
 
           repos = []
           page = 1
           while True:
-              endpoint = f"https://api.github.com/user/repos?per_page=100&page={page}&sort=created"
-              if not token:
-                  endpoint = f"https://api.github.com/users/{username}/repos?per_page=100&page={page}"
-
-              response = requests.get(endpoint, headers=headers, timeout=30)
-              response.raise_for_status()
-              batch = response.json()
+              req = urllib.request.Request(
+                  f"https://api.github.com/users/{username}/repos?per_page=100&page={page}&sort=created&direction=asc",
+                  headers=headers,
+              )
+              with urllib.request.urlopen(req, timeout=30) as resp:
+                  batch = json.load(resp)
               if not batch:
                   break
-
-              for repo in batch:
-                  repos.append(repo)
-
+              repos.extend(batch)
               if len(batch) < 100:
                   break
               page += 1
 
           if not repos:
-              raise SystemExit("No owned repositories found for this user.")
+              raise SystemExit("No repositories found")
 
           created_dates = []
           for repo in repos:
@@ -76,16 +74,19 @@ jobs:
                   created_dates.append(datetime.fromisoformat(created_at.replace("Z", "+00:00")).date())
 
           if not created_dates:
-              raise SystemExit("No repository creation dates found.")
+              raise SystemExit("No created dates found")
 
           month_counts = Counter(d.replace(day=1) for d in created_dates)
+          if not month_counts:
+              raise SystemExit("No monthly counts found")
+
           start_month = min(month_counts)
           end_month = max(month_counts)
 
-          all_months = []
+          months = []
           current = start_month
           while current <= end_month:
-              all_months.append(current)
+              months.append(current)
               if current.month == 12:
                   current = current.replace(year=current.year + 1, month=1)
               else:
@@ -93,35 +94,71 @@ jobs:
 
           cumulative = 0
           values = []
-          for month in all_months:
+          for month in months:
               cumulative += month_counts.get(month, 0)
               values.append(cumulative)
 
-          fig, ax = plt.subplots(figsize=(10, 4), dpi=120)
-          fig.patch.set_facecolor("#0d1117")
-          ax.set_facecolor("#0d1117")
+          width, height = 900, 320
+          margin_left, margin_right = 60, 30
+          margin_top, margin_bottom = 40, 50
+          plot_w = width - margin_left - margin_right
+          plot_h = height - margin_top - margin_bottom
 
-          ax.plot(all_months, values, color="#7c3aed", linewidth=2.2)
-          ax.set_title("Repositories over time", fontsize=12, color="white")
-          ax.set_xlabel("Month", color="white")
-          ax.set_ylabel("Total repositories", color="white")
-          ax.grid(True, alpha=0.2, color="white")
-          ax.tick_params(colors="white")
+          max_value = max(values) if values else 1
+          min_value = min(values) if values else 0
+          if max_value == min_value:
+              max_value += 1
 
-          for spine in ax.spines.values():
-              spine.set_visible(False)
+          def x_for(i):
+              return margin_left + (i / max(1, len(months) - 1)) * plot_w
 
-          plt.xticks(rotation=30)
-          plt.tight_layout()
+          def y_for(v):
+              return margin_top + plot_h - ((v - min_value) / (max_value - min_value)) * plot_h
 
+          svg_parts = [
+              f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
+              '<rect width="100%" height="100%" fill="#0d1117"/>',
+              '<text x="40" y="28" fill="#c9d1d9" font-family="Arial, sans-serif" font-size="20">Repositories over time</text>',
+          ]
+
+          # axes
+          svg_parts.append(f'<line x1="{margin_left}" y1="{margin_top + plot_h}" x2="{margin_left}" y2="{margin_top}" stroke="#58a6ff" stroke-width="1.5"/>')
+          svg_parts.append(f'<line x1="{margin_left}" y1="{margin_top + plot_h}" x2="{width - margin_right}" y2="{margin_top + plot_h}" stroke="#58a6ff" stroke-width="1.5"/>')
+
+          # grid lines
+          for step in range(4):
+              y = margin_top + (plot_h / 3) * step
+              svg_parts.append(f'<line x1="{margin_left}" y1="{y}" x2="{width - margin_right}" y2="{y}" stroke="#30363d" stroke-width="1" stroke-dasharray="4 3"/>')
+
+          # line path
+          points = []
+          for i, v in enumerate(values):
+              points.append(f"{x_for(i)},{y_for(v)}")
+          path_d = "M " + " L ".join(points)
+          svg_parts.append(f'<path d="{path_d}" fill="none" stroke="#7c3aed" stroke-width="3"/>')
+
+          # points
+          for i, v in enumerate(values):
+              x = x_for(i)
+              y = y_for(v)
+              svg_parts.append(f'<circle cx="{x}" cy="{y}" r="4" fill="#58a6ff"/>')
+
+          # month labels
+          for i, month in enumerate(months):
+              if i % max(1, len(months) // 6) == 0 or i == len(months) - 1:
+                  x = x_for(i)
+                  label = month.strftime("%b %Y")
+                  svg_parts.append(f'<text x="{x}" y="{height - 18}" fill="#8b949e" font-family="Arial, sans-serif" font-size="11" text-anchor="middle">{label}</text>')
+
+          svg_parts.append('</svg>')
           output_path = Path("dist/repositories.svg")
           output_path.parent.mkdir(exist_ok=True)
-          fig.savefig(output_path, format="svg", bbox_inches="tight")
-          print(f"Saved graph to {output_path}")
+          output_path.write_text("\n".join(svg_parts), encoding="utf-8")
+          print(f"Wrote {output_path}")
           PY
 
       - name: Publish graph to output branch
-        uses: crazy-max/ghaction-github-pages@v3.1.0
+        uses: crazy-max/ghaction-github-pages@v4
         with:
           target_branch: repositories-output
           build_dir: dist
