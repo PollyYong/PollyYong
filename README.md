@@ -10,10 +10,6 @@
   <h1>Hi, I'm Polly 👋</h1>
   <p><strong>Fresh graduate from Heriot-Watt University</strong></p>
   <p>I enjoy building thoughtful software, learning new technologies, and turning ideas into practical products.</p>
-
-  <a href="https://github.com/PollyYong">
-    <img src="https://komarev.com/ghpvc/?username=PollyYong&style=flat-square&color=7c3aed" alt="Profile views" />
-  </a>
 </div>
 
 ## About me
