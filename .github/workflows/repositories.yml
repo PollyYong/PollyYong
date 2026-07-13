@@ -1,0 +1,129 @@
+name: Generate repositories timeline
+
+on:
+  schedule:
+    - cron: "* */12 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install matplotlib requests
+
+      - name: Generate repositories timeline graph
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+        run: |
+          python - <<'PY'
+          import os
+          import requests
+          from datetime import datetime
+          from collections import Counter
+          from pathlib import Path
+          import matplotlib.pyplot as plt
+
+          plt.switch_backend("Agg")
+
+          username = os.environ["USERNAME"]
+          token = os.environ.get("GH_TOKEN", "")
+          headers = {"Authorization": f"Bearer {token}"} if token else {}
+
+          repos = []
+          page = 1
+          while True:
+              endpoint = f"https://api.github.com/user/repos?per_page=100&page={page}&sort=created"
+              if not token:
+                  endpoint = f"https://api.github.com/users/{username}/repos?per_page=100&page={page}"
+
+              response = requests.get(endpoint, headers=headers, timeout=30)
+              response.raise_for_status()
+              batch = response.json()
+              if not batch:
+                  break
+
+              for repo in batch:
+                  repos.append(repo)
+
+              if len(batch) < 100:
+                  break
+              page += 1
+
+          if not repos:
+              raise SystemExit("No owned repositories found for this user.")
+
+          created_dates = []
+          for repo in repos:
+              created_at = repo.get("created_at")
+              if created_at:
+                  created_dates.append(datetime.fromisoformat(created_at.replace("Z", "+00:00")).date())
+
+          if not created_dates:
+              raise SystemExit("No repository creation dates found.")
+
+          month_counts = Counter(d.replace(day=1) for d in created_dates)
+          start_month = min(month_counts)
+          end_month = max(month_counts)
+
+          all_months = []
+          current = start_month
+          while current <= end_month:
+              all_months.append(current)
+              if current.month == 12:
+                  current = current.replace(year=current.year + 1, month=1)
+              else:
+                  current = current.replace(month=current.month + 1)
+
+          cumulative = 0
+          values = []
+          for month in all_months:
+              cumulative += month_counts.get(month, 0)
+              values.append(cumulative)
+
+          fig, ax = plt.subplots(figsize=(10, 4), dpi=120)
+          fig.patch.set_facecolor("#0d1117")
+          ax.set_facecolor("#0d1117")
+
+          ax.plot(all_months, values, color="#7c3aed", linewidth=2.2)
+          ax.set_title("Repositories over time", fontsize=12, color="white")
+          ax.set_xlabel("Month", color="white")
+          ax.set_ylabel("Total repositories", color="white")
+          ax.grid(True, alpha=0.2, color="white")
+          ax.tick_params(colors="white")
+
+          for spine in ax.spines.values():
+              spine.set_visible(False)
+
+          plt.xticks(rotation=30)
+          plt.tight_layout()
+
+          output_path = Path("dist/repositories.svg")
+          output_path.parent.mkdir(exist_ok=True)
+          fig.savefig(output_path, format="svg", bbox_inches="tight")
+          print(f"Saved graph to {output_path}")
+          PY
+
+      - name: Publish graph to output branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: repositories-output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
