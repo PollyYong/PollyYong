@@ -43,7 +43,7 @@
 </div>
 
 <div align="center">
-    <img data-importer="repositories" src="https://raw.githubusercontent.com/PollyYong/PollyYong/top-repositories.svg" alt="Top Repositories" />
+    <img data-importer="repositories" src="https://raw.githubusercontent.com/PollyYong/PollyYong/repositories.svg" alt="Top Repositories" />
 </div>
 
 <div align="center">
