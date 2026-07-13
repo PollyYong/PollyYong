@@ -21,14 +21,13 @@
 - 🤝 Open to graduate opportunities, collaborations and conversations about technology
 
 ## GitHub at a glance
-
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=PollyYong&show_icons=true&hide_title=true&theme=tokyonight&hide_border=true" height="165" alt="GitHub statistics" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PollyYong&layout=compact&theme=tokyonight&hide_border=true" height="165" alt="Most used languages" />
+<div data-importer="stats" align="center">
+  <img src="https://raw.githubusercontent.com/PollyYong/PollyYong/stats-output/stats.svg?hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="150" alt="stats graph"  />
+  <img src="https://raw.githubusercontent.com/PollyYong/PollyYong/languages-output/languages.svg?locale=en&hide_title=false&layout=compact&card_width=320&langs_count=5&theme=dracula&hide_border=false" height="150" alt="languages graph"  />
 </div>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/PollyYong/PollyYong/output/snake.svg" alt="Snake animation" />
+  <img data-importer="snake" src="https://raw.githubusercontent.com/PollyYong/PollyYong/snake-output/snake.svg" alt="Snake animation" />
 </div>
 
 ## Let's connect
@@ -97,9 +96,3 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" height="40" alt="Figma" />
 </div>
 
-## GitHub at a glance
-
-<div data-importer="stats" align="center">
-  <img src="https://raw.githubusercontent.com/PollyYong/PollyYong/stats-output/stats.svg?hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="150" alt="stats graph"  />
-  <img src="https://raw.githubusercontent.com/PollyYong/PollyYong/languages-output/languages.svg?locale=en&hide_title=false&layout=compact&card_width=320&langs_count=5&theme=dracula&hide_border=false" height="150" alt="languages graph"  />
-</div>
