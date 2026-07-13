@@ -23,6 +23,15 @@
 - 💡 Interested in web and mobile development, cloud services, data-driven applications and AI
 - 🤝 Open to graduate opportunities, collaborations and conversations about technology
 
+## Let's connect
+
+<div align="center">
+  <a href="mailto:pollyyong1254@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
+  <a href="https://github.com/PollyYong" target="_blank"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
+  <a href="https://www.linkedin.com/in/yong-ka-pao-584b81331/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="https://resume-rosy-two.vercel.app/" target="_blank"><img src="https://img.shields.io/badge/Portfolio-7C3AED?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio website" /></a>
+</div>
+
 ## GitHub at a glance
 <div data-importer="stats" align="center">
   <img src="https://raw.githubusercontent.com/PollyYong/PollyYong/stats-output/stats.svg?hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="150" alt="stats graph"  />
@@ -30,18 +39,18 @@
 </div>
 
 <div align="center">
-  <img src="https://streak-stats.demolab.com?user=PollyYong&locale=en&mode=daily&theme=dark&hide_border=false&border_radius=5&order=3" height="220" alt="streak graph"  />
-  <img data-importer="snake" src="https://raw.githubusercontent.com/c/PollyYong/snake-output/snake.svg" alt="Snake animation" />
+  <img src="https://streak-stats.demolab.com?user=PollyYong&locale=en&mode=daily&theme=dark&hide_border=false&border_radius=5&order=3" height="220" alt="streak graph"/>
 </div>
 
-## Let's connect
+<div align="center">
+  <a href="https://github.com/PollyYong?tab=repositories">
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=PollyYong&layout=compact&theme=dracula&hide_border=false&langs_count=6" alt="Top Repositories" />
+  </a>
+</div>
 
-<p align="left">
-  <a href="mailto:pollyyong1254@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
-  <a href="https://github.com/PollyYong" target="_blank"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
-  <a href="https://www.linkedin.com/in/yong-ka-pao-584b81331/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-  <a href="https://resume-rosy-two.vercel.app/" target="_blank"><img src="https://img.shields.io/badge/Portfolio-7C3AED?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio website" /></a>
-</p>
+<div align="center">
+  <img data-importer="snake" src="https://raw.githubusercontent.com/c/PollyYong/snake-output/snake.svg" alt="Snake animation" />
+</div>
 
 ## Tech toolkit
 ### Languages
@@ -100,3 +109,32 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" height="40" alt="Figma" />
 </div>
 
+## Featured Projects
+### 📱 TourMob — Personalized Travel Companion (Honours Dissertation)
+*An intelligent, context-aware mobile application delivering customized trip planning.*
+* **Tech Toolkit:** Flutter, Dart, Firebase, Live Web APIs
+* **Contextual Recommendation Engine:** Designed client-side logic that analyzes real-time geolocation, live weather forecasts, and user time constraints to auto-generate optimized travel itineraries.
+* **Architecture:** Implemented clean architecture and state management patterns to ensure a low-latency, highly responsive mobile client interface.
+
+### 🏠 NZHome — E-Commerce Home & Living Platform
+*A full-stack e-commerce web application engineered for modern retail experiences.*
+* **Tech Toolkit:** React.js, Next.js, TypeScript, Node.js, PostgreSQL / MySQL
+* **Product Ecosystem:** Built modular components for dynamic product catalogs, advanced filtering systems, and a robust cart/checkout state management workflow.
+* **Backend Integration:** Developed secure API endpoints to handle data workflows, order transactions, and inventory state tracking safely.
+
+### 🌿 Smart Plantation Management System
+*A data-driven platform built to streamline agricultural workflows, crop tracking, and logistics.*
+* **Tech Toolkit:** WIX
+* **Data Workflows:** Designed database schemas to track real-time crop growth cycles, environmental metrics and resource allocation across different sectors.
+* **Operational Dashboard:** Engineered a centralized dashboard that visualizes field statistics, helping supervisors make data-backed operational adjustments.
+
+### 🤖 Autonomous Lunar Mission Planner
+*An automated AI planning model simulating task execution for the European Large Logistics Lander mission.*
+* **Tech Toolkit:** PDDL (Planning Domain Definition Language)
+* **Optimization & Logic:** Authored complex domain structures and problem files to orchestrate multi-agent autonomous task scheduling and obstacle avoidance constraints in a simulated environment.
+
+### 🌐 Personal Portfolio Website
+*A fast, highly performant, responsive web application showcase built to present technical capabilities.*
+* **Tech Toolkit:** Next.js, Tailwind CSS, Vercel
+* **Performance Optimization:** Crafted semantic, modern layouts featuring clean UI/UX design, optimized asset delivery, and responsive layouts for seamless cross-device viewing.
+* **Deployment:** Integrated CI/CD pipelines via Vercel for automated, zero-downtime production deployments.
