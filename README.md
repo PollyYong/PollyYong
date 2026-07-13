@@ -2,6 +2,9 @@
   Replace every occurrence of YOUR_GITHUB_USERNAME and the social-link URLs below.
   Keep this README in a repository named exactly YOUR_GITHUB_USERNAME.
 -->
+<div data-importer="image" align="center">
+  <img data-importer="image" height="150" src="https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif"  />
+</div>
 
 <div align="center">
   <h1>Hi, I'm Polly 👋</h1>
@@ -27,7 +30,8 @@
 </div>
 
 <div align="center">
-  <img data-importer="snake" src="https://raw.githubusercontent.com/PollyYong/PollyYong/snake-output/snake.svg" alt="Snake animation" />
+  <img src="https://streak-stats.demolab.com?user=PollyYong&locale=en&mode=daily&theme=dark&hide_border=false&border_radius=5&order=3" height="220" alt="streak graph"  />
+  <img data-importer="snake" src="https://raw.githubusercontent.com/c/PollyYong/snake-output/snake.svg" alt="Snake animation" />
 </div>
 
 ## Let's connect
